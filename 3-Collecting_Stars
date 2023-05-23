@@ -1,7 +1,7 @@
 # Help Mario Collect The Star!
 
 ## Introduction:
-Mario needs help collecting his star in the castle, but a bat keeps getting in his way. Let's help Mario doge the bat to collect his star
+Mario needs help collecting his star in the castle, but a bat keeps getting in his way. Let's help Mario dodge the bat to collect his star
 
 ## Step 1: Create a scene!
 In the ``||Loops: on start||`` block, place a ``||Scene: set background image||`` block. You can make your own castle, or use the preset background in gallery.
