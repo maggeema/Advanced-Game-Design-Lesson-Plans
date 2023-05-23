@@ -190,7 +190,7 @@ Stars.setPosition(51, 42)
 ```
 
 ## Step 4: What an evil bat!
-Create the enemy. Use the `||Sprites: set mySprite to sprite of kind Player||`` block and  ``||Sprites: set mySprite position to x y||`` again. You can use a bat or get creative to make another kind of enemy. Label this sprite kind as enemy though!
+Create the enemy. Use the ``||Sprites: set mySprite to sprite of kind Player||`` block and  ``||Sprites: set mySprite position to x y||`` again. You can use a bat or get creative to make another kind of enemy. Label this sprite kind as enemy though!
 
 Use the ``||Sprites: set mySprite to vx vy||`` block to adjust the speed that the bat is flying at, and use the ``||Sprites: set mySprite bounce on wall <ON>||`` to make the enemy get in Mario's way of getting to the star. 
 ```blocks
