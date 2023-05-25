@@ -1,0 +1,127 @@
+# Flappy Bird
+
+## Introduction: 
+Let's recreate our own version of flappy bird! Flappy bird is a game where a bird flies in the air and avoids obstacles to try to get to the endpoint. (An obstacle is an object that gets in the way of winning.)
+
+## Step 1: Design your bird!
+Inside ``||Loops: on start||``, add a ``||Sprites: set mySprite to sprite of kind Player||`` block. You can choose or design your own sprite for your bird (if you want to get funky and creative, you can make the sprite something that is not a bird. It can be an airplane or even a butterfly!)
+```blocks
+let Bird: Sprite = null
+Bird = sprites.create(img`
+    . . . . . . . . . . b 5 b . . . 
+    . . . . . . . . . b 5 b . . . . 
+    . . . . . . b b b b b b . . . . 
+    . . . . . b b 5 5 5 5 5 b . . . 
+    . . . . b b 5 d 1 f 5 d 4 c . . 
+    . . . . b 5 5 1 f f d d 4 4 4 b 
+    . . . . b 5 5 d f b 4 4 4 4 b . 
+    . . . b d 5 5 5 5 4 4 4 4 b . . 
+    . b b d d d 5 5 5 5 5 5 5 b . . 
+    b d d d b b b 5 5 5 5 5 5 5 b . 
+    c d d b 5 5 d c 5 5 5 5 5 5 b . 
+    c b b d 5 d c d 5 5 5 5 5 5 b . 
+    c b 5 5 b c d d 5 5 5 5 5 5 b . 
+    b b c c c d d d 5 5 5 5 5 d b . 
+    . . . . c c d d d 5 5 5 b b . . 
+    . . . . . . c c c c c b b . . . 
+    `, SpriteKind.Player)
+```
+
+## Step 2: Create an obstacle course for your bird!
+Add a ``||Scene: set tilemap to tilemap||`` block. 
+
+In the tilemap editor, change the size of the background from 16 x 16 to 16 x 32. 
+
+Add a cloud tile by clicking on "My Tiles" and the "+" button underneath it. Use other tile blocks to create an abstacle for the bird. Make sure there is enough space between the top and bottom obstacles for the bird to flap their wings!
+
+(HINT! In the tilemap editor, go to gallery. The default is "forest", but there are other options for you to explore as well!)
+```blocks
+tiles.setCurrentTilemap(tilemap`level4`)
+```
+
+## Step 3: Let's make the bird fly!
+Drag in the ``||Sprites: set mySprite position to x y||`` block and set the position of the bird to x = 0 and y = 80. 
+
+Also, add a ``||Sprites: set mySprite velocity to vx vy||`` block and set vx = 15 and vy = 30. 
+
+To be able to have a constant POV of the navigating bird, add the ``||Scene: camera follow sprite||`` block and set mySprite to BIRD.
+``` blocks
+let Bird: Sprite = null
+Bird.setPosition(0, 80)
+Bird.setVelocity(15, 30)
+scene.cameraFollowSprite(Bird)
+```
+
+## Step 4: It's not just a flying bird, it's a FLAPPY bird!
+Add two separate ``||Controller: on [A] button pressed||`` blocks. Change one of the two to be ``||Controller: on [A] button released||``. 
+
+Inside of each of these orange blocks, insert a ``||Sprites: change mySprite x by 0||`` block. For both blocks, change x to y. Insert a ``||Math: 0 [+] 0||`` block instead of "by 0". 
+
+Since we want the bird to flap/jump (or go up) when the A button is pressed, change it to ``||Sprites: change Bird [y] by (0 - 30)||``. When the A button is released, it should fall back down. Inside the RELEASED A button block, change it to change Bird [y] by (0 + 15).
+``` blocks
+let Bird: Sprite = null
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    Bird.y += 0 - 30
+})
+controller.A.onEvent(ControllerButtonEvent.Released, function () {
+    Bird.y += 0 + 15
+})
+```
+
+## Step 5: WIN OR LOSE?
+We want the game to lose when the bird touches the obstacles, and win when the bird reaches the endpoint. 
+
+Add two separate ``||Scene: on sprite of kind Player overlaps at location||`` blocks. One should match up with the obstacle tile, and the other should match up with the endpoint tile. 
+
+Place ``||Game: game over <WIN>||`` in each overlaps block. Set it to lose if it overlaps the obstacle tile, and win when it overlaps the endpoint tile. 
+```blocks
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorMixed, function (sprite, location) {
+    game.gameOver(false)
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, function (sprite, location) {
+    game.gameOver(true)
+})
+```
+
+## Step 6: Time to play Flappy Bird!
+Try the game and see if you are able to make it to the end! To see what the final game blocks should look like, press the hint button below. 
+``` blocks
+let Bird: Sprite = null
+Bird = sprites.create(img`
+    . . . . . . . . . . b 5 b . . . 
+    . . . . . . . . . b 5 b . . . . 
+    . . . . . . b b b b b b . . . . 
+    . . . . . b b 5 5 5 5 5 b . . . 
+    . . . . b b 5 d 1 f 5 d 4 c . . 
+    . . . . b 5 5 1 f f d d 4 4 4 b 
+    . . . . b 5 5 d f b 4 4 4 4 b . 
+    . . . b d 5 5 5 5 4 4 4 4 b . . 
+    . b b d d d 5 5 5 5 5 5 5 b . . 
+    b d d d b b b 5 5 5 5 5 5 5 b . 
+    c d d b 5 5 d c 5 5 5 5 5 5 b . 
+    c b b d 5 d c d 5 5 5 5 5 5 b . 
+    c b 5 5 b c d d 5 5 5 5 5 5 b . 
+    b b c c c d d d 5 5 5 5 5 d b . 
+    . . . . c c d d d 5 5 5 b b . . 
+    . . . . . . c c c c c b b . . . 
+    `, SpriteKind.Player)
+tiles.setCurrentTilemap(tilemap`level4`)
+Bird.setPosition(0, 80)
+Bird.setVelocity(15, 30)
+scene.cameraFollowSprite(Bird)
+```
+```blocks
+let Bird: Sprite = null
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    Bird.y += 0 - 30
+})
+controller.A.onEvent(ControllerButtonEvent.Released, function () {
+    Bird.y += 0 + 15
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorMixed, function (sprite, location) {
+    game.gameOver(false)
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, function (sprite, location) {
+    game.gameOver(true)
+})
+```
