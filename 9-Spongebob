@@ -1,8 +1,10 @@
+# Spongebob Catches Jellyfish
+
 ## Introduction
 Let's make a game where Spongebob has fun catching his jellyfish! 
 
 ## Step 1: Design your background!
-Click on ``||Scene: set background||`` and design an under the sea feild for Spongebob to run around in. 
+Click on ``||Scene: set background||`` and design an under the sea field for Spongebob to run around in. 
 
 ```blocks
 scene.setBackgroundImage(img`
@@ -130,7 +132,7 @@ scene.setBackgroundImage(img`
 ```
 
 ## Step 2: Create your Spongebob sprite!
-Using the ``||Sprites: create mySprite||`` block, design your own Spongebob sprite. Get creative! It could even be Patrick or Sandy. 
+Using the ``||Sprites: set mySprite to sprite of kind Player||`` block, design your own Spongebob sprite. Get creative! It could even be Patrick or Sandy. 
 
 Just make sure you design your sprite holding a net so that they can catch the jellyfish. 
 ```blocks
@@ -382,12 +384,19 @@ game.onUpdateInterval(2000, function () {
 
 
 ## Step 5: Help Spongebob keep track of how many jellyfish he catches!
-Place a ``||Sprites: on sprite of kind Player overlaps otherSprite of kind Player||`` and change it to say "on sprite of kind PROJECTILE overlaps otherSprite of kind PLAYER". Inside this big block, place a ``||Sprites: destroy mySprite||`` block. To make it look more fun, press on the "+" and change the block to "destroy jellyfish with bubbles effect for 100 ms". This way, whenever Spongebob catches a jellyfish, there will bubbles that show that he has caught the jellyfish. The final touch is to add a point system to keep track of how many jellyfish he has caught. Drag in the ``||Info: change score by 1||` block, and test out your game. Let's see how many jellyfish you can help Spongebob catch. 
+Place a ``||Sprites: on sprite of kind Player overlaps otherSprite of kind Player||`` and change it to say "on sprite of kind PROJECTILE overlaps otherSprite of kind PLAYER". Inside this big block, place a ``||Sprites: destroy mySprite||`` block. To make it look more fun, press on the "+" and change the block to "destroy jellyfish with bubbles effect for 100 ms". This way, whenever Spongebob catches a jellyfish, there will bubbles that show that he has caught the jellyfish. The final touch is to add a point system to keep track of how many jellyfish he has caught. Drag in the ``||Info: change score by 1||`` block, and test out your game.
 ```blocks
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
     sprites.destroy(jellyfish, effects.bubbles, 100)
     info.changeScoreBy(1)
 })
+let jellyfish: Sprite = null
+```
+
+## Step 6: Test our your game!
+Let's see how many jellyfish you can help Spongebob catch! To see how the final game blocks are formatted, press the hint button below.
+
+```blocks
 let jellyfish: Sprite = null
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999988889999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -575,5 +584,11 @@ game.onUpdateInterval(2000, function () {
         3 3 . . 3 3 . 3 . . 3 3 . 3 3 . 
         3 . . . 3 . . . . . . 3 . 3 . . 
         `, randint(10, 100), randint(30, 50))
+})
+```
+```blocks
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
+    sprites.destroy(jellyfish, effects.bubbles, 100)
+    info.changeScoreBy(1)
 })
 ```
